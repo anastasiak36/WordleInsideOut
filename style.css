@@ -14,10 +14,13 @@ body {
     min-height: 525px;
     margin: 0 auto; /* centering trick */
     padding: 20px;
-    background-color:#db98ed;
+    background-color:#d384e8;
+    opacity: 65%;
 }
 h1 {
     margin: 0 auto;
     text-align: center;
+    color: #0b1fd9;
+    
 }
 
