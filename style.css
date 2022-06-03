@@ -1,5 +1,23 @@
-body {
-    background-image: url("images/bg.jpg");
+/* body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+html {
+    background-image: url("images/bg.jpg");
+} */
+html {
+    background-image: url("images/bg.jpg");
+}
+body {
+    min-width: 50%;
+    max-width: 525px;
+    min-height: 525px;
+    margin: 0 auto; /* centering trick */
+    padding: 20px;
+    background-color:#db98ed;
+}
+h1 {
+    margin: 0 auto;
+    text-align: center;
+}
+
