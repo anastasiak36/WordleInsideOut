@@ -51,4 +51,40 @@ document.addEventListener("keyup", (e) => {
         var currentGridTile = document.getElementById(currentRow.toString() + currentCol.toString());
         currentGridTile.innerText = "";
     }
+    
+    else if (e.code == "Enter") {
+        update();
+        currentRow += 1;
+        currentCol = 0;
+    }
 })
+
+function update() {
+    var correct = 0; 
+    var word = "APPLE";
+    //random letter generating... doesn't work right now
+    // const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    // var randomCharacter = alphabet[Math.floor(Math.random() * alphabet.length)];
+    // while (word.includes(randomCharacter)) {
+    //     var randomCharacter = alphabet[Math.floor(Math.random() * alphabet.length)];
+    // }
+    // console.log(randomCharacter);
+    for (let c = 0; c < innerWidth; c++) {
+        var currentGridTile = document.getElementById(currentRow.toString() + c.toString());
+        let letter = currentGridTile.innerText;
+        if (word[c] == letter) {
+            correct += 1;
+        }
+        else if (word.includes(letter)) {
+            currentGridTile.innerText = "W";
+        }
+        //part of random letter generation
+        // if (letter == randomCharacter){
+        //     currentGridTile.innerText = ":(";
+        // }
+        else {
+            currentGridTile.innerText = "N";
+        }
+    }
+    alert(correct + " are correct so far!");
+}
