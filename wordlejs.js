@@ -1,8 +1,13 @@
 var currentRow = 0;
 var currentCol = 0;
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var randomList = [];
+var word;
+var lives = 3;
 var radios = document.getElementsByName("level");
 var button = document.getElementById("button");
 button.onclick = getLevel;
+
 
 function getLevel() {
     for (var i = 0, length = radios.length; i < length; i++) {
@@ -14,14 +19,22 @@ function getLevel() {
             break;
         }
     }
+    generateWord();
     createGrid();
 }
 
+function generateWord() {
+    word = "APPLE";
+    for (var i = 0; i < 3; i++) {
+        randomList[i] = Math.floor(Math.random() * alphabet.length)
+        while (word.includes(alphabet[randomList[i]])) {
+            randomList[i] = Math.floor(Math.random() * alphabet.length);
+        }
+    }
+    alert(randomList);
+}
+
 function createGrid() {
-    // document.parentNode.removeChild(button);
-    // for (var i = 0, length = radios.length; i < length; i++) {
-    //     document.parentNode.removeChild(radios[i]);
-    // }
     document.getElementById("form").parentNode.removeChild(document.getElementById("form"));
     for (var row = 0; row < 6; row++ ) {
         for (var col = 0; col < 5; col++) {
@@ -54,37 +67,44 @@ document.addEventListener("keyup", (e) => {
     
     else if (e.code == "Enter") {
         update();
-        currentRow += 1;
-        currentCol = 0;
+        
     }
 })
 
 function update() {
     var correct = 0; 
-    var word = "APPLE";
-    //random letter generating... doesn't work right now
-    // const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    // var randomCharacter = alphabet[Math.floor(Math.random() * alphabet.length)];
-    // while (word.includes(randomCharacter)) {
-    //     var randomCharacter = alphabet[Math.floor(Math.random() * alphabet.length)];
-    // }
-    // console.log(randomCharacter);
-    for (let c = 0; c < innerWidth; c++) {
+    
+    for (let c = 0; c < 5; c++) {
         var currentGridTile = document.getElementById(currentRow.toString() + c.toString());
-        let letter = currentGridTile.innerText;
+        var letter = currentGridTile.innerText;
         if (word[c] == letter) {
-            correct += 1;
+            //correct += 1;
+            currentGridTile.className = "correct";
         }
         else if (word.includes(letter)) {
-            currentGridTile.innerText = "W";
+            currentGridTile.className = "inWord";
         }
-        //part of random letter generation
-        // if (letter == randomCharacter){
-        //     currentGridTile.innerText = ":(";
-        // }
         else {
-            currentGridTile.innerText = "N";
+            currentGridTile.className = "wrong";
+            for (var i = 0; i < 3; i++ ) {
+                if (letter == alphabet[randomList[i]]){
+                    currentGridTile.className = "secretLetter";
+                    lives--;
+                    document.getElementById("lives").innerText = "Lives: " + lives.toString();
+                    if (lives == 0) {
+                        gameOver();
+                    }
+                }
+            }
         }
     }
-    alert(correct + " are correct so far!");
+    currentRow += 1;
+    currentCol = 0;
+    //alert(correct + " are correct so far!");
+}
+
+function gameOver(){
+    if (lives == 0) {
+        alert("Game Over, you ran out of lives :(");
+    }
 }

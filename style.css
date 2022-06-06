@@ -23,7 +23,7 @@ h1 {
     color: #0b1fd9;
     
 }
-.gridTile {
+span {
     border: 2px solid black;
     width: 60px;
     height: 60px;
@@ -35,6 +35,22 @@ h1 {
     justify-content: center;
     align-items: center;
 
+}
+
+.correct {
+    background-color: darkolivegreen;
+}
+
+.inWord {
+    background-color: darkgoldenrod;
+}
+
+.wrong {
+    background-color:dimgray;
+    opacity: 100%;
+}
+.secretLetter {
+    background-color:lightcoral;
 }
 
 #grid {
