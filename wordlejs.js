@@ -1,5 +1,6 @@
 var currentRow = 0;
 var currentCol = 0;
+ 
 var level;
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var randomList = [];
@@ -102,17 +103,19 @@ document.addEventListener("keyup", (e) => {
     
 })
 
-function update(userWord) {
-    var correct = 0; 
+function update(userWord) { 
+    var correct = 0;
     for (let c = 0; c < 5; c++) {
         currentGridTile = document.getElementById(currentRow.toString() + c.toString());
         //console.log(word);
         //console.log(userWord[c]);
+        var copyOfWord = word;
         if (word[c] == userWord[c]) {
             correct += 1;
             currentGridTile.className = "correct";
         }
-        else if (word.includes(userWord[c])) {
+        else if (copyOfWord.includes(userWord[c])) {
+            //need to figure out how to take out the letter from word... either slice or remove method (need to find something)
             currentGridTile.className = "inWord";
         }
         else {
