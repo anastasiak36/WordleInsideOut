@@ -1,11 +1,12 @@
 var currentRow = 0;
 var currentCol = 0;
 var level;
-var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var randomList = [];
 var word;
 var lives = 3;
 var currentGridTile;
+var gameStop = false;
 var radios = document.getElementsByName("level");
 var button = document.getElementById("button");
 button.onclick = getLevel;
@@ -35,12 +36,15 @@ function getLevel() {
 function generateWord(w) {
     word = w.toUpperCase();
     console.log(word);
+    var randomLetters = "";
     for (var i = 0; i < 3; i++) {
-        randomList[i] = Math.floor(Math.random() * alphabet.length)
-        while (word.includes(alphabet[randomList[i]])) {
+        randomList[i] = Math.floor(Math.random() * alphabet.length);
+        while (word.includes(alphabet[randomList[i]]) || randomLetters.includes(alphabet[randomList[i]])) {
             randomList[i] = Math.floor(Math.random() * alphabet.length);
         }
-        alphabet = alphabet.substring(0, randomList[i]) + alphabet.substring(randomList[i] + 1);
+        randomLetters += alphabet[randomList[i]];
+        //alphabet = alphabet.substring(0, randomList[i]) + alphabet.substring(randomList[i] + 1);
+        console.log(randomLetters);
         //console.log(alphabet);
     }
     alert(randomList);
@@ -59,40 +63,43 @@ function createGrid() {
     }
 }
 document.addEventListener("keyup", (e) => {
-    if ("KeyA" <= e.code && e.code <= "KeyZ") {
-        if (currentCol < 5) {
-            currentGridTile = document.getElementById(currentRow.toString() + currentCol.toString());
-            if (currentGridTile.innerText == "") {
-                currentGridTile.innerText = e.code[3];
-                currentCol += 1;
+    if (!gameStop) {
+        if ("KeyA" <= e.code && e.code <= "KeyZ") {
+            if (currentCol < 5) {
+                currentGridTile = document.getElementById(currentRow.toString() + currentCol.toString());
+                if (currentGridTile.innerText == "") {
+                    currentGridTile.innerText = e.code[3];
+                    currentCol += 1;
+                }
             }
         }
-    }
-
-    else if (e.code == "Backspace"){
-        if (0 < currentCol && currentCol <= 5) {
-            currentCol -= 1;
+    
+        else if (e.code == "Backspace"){
+            if (0 < currentCol && currentCol <= 5) {
+                currentCol -= 1;
+            }
+            currentGridTile = document.getElementById(currentRow.toString() + currentCol.toString());
+            currentGridTile.innerText = "";
         }
-        currentGridTile = document.getElementById(currentRow.toString() + currentCol.toString());
-        currentGridTile.innerText = "";
+        
+        else if (e.code == "Enter") {
+            var currentUserWord = getWord();
+            fetch('words.txt').then(response => response.text()).then(data => {
+                var dict = data.split('\r\n');
+                //console.log(currentUserWord.toLowerCase());
+                if (dict.indexOf(currentUserWord.toLowerCase()) != -1) {
+                    update(currentUserWord);
+                }
+                else {
+                    alert("The word you typed is not a word, please try again");
+                }
+            });
+            
+            
+            
+        }
     }
     
-    else if (e.code == "Enter") {
-        var currentUserWord = getWord();
-        fetch('words.txt').then(response => response.text()).then(data => {
-            var dict = data.split('\r\n');
-            //console.log(currentUserWord.toLowerCase());
-            if (dict.indexOf(currentUserWord.toLowerCase()) != -1) {
-                update(currentUserWord);
-            }
-            else {
-                alert("The word you typed is not a word, please try again");
-            }
-        });
-        
-        
-        
-    }
 })
 
 function update(userWord) {
@@ -102,7 +109,7 @@ function update(userWord) {
         //console.log(word);
         //console.log(userWord[c]);
         if (word[c] == userWord[c]) {
-            //correct += 1;
+            correct += 1;
             currentGridTile.className = "correct";
         }
         else if (word.includes(userWord[c])) {
@@ -122,7 +129,13 @@ function update(userWord) {
             }
         }
     }
+    if (correct == 5) {
+        gameWin();
+    }
     currentRow += 1;
+    if (currentRow > 5) {
+        gameOver();
+    }
     currentCol = 0;
     //alert(correct + " are correct so far!");
 }
@@ -141,6 +154,14 @@ function getWord() {
 
 function gameOver(){
     if (lives == 0) {
+        gameStop = true;
         alert("Game Over, you ran out of lives :(");
     }
+    else {
+        gameStop = true;
+        alert("Game Over, you ran out of guesses :/");
+    }
+}
+function gameWin() {
+    alert("congrats you won :)");
 }
