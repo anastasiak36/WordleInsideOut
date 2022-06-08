@@ -16,10 +16,6 @@ button.onclick = getLevel;
 function getLevel() {
     for (var i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
-            // do whatever you want with the checked radio
-            //alert(radios[i].value);
-
-            // only one radio can be logically checked, don't check the rest
             level = radios[i].value;
             break;
             
@@ -95,28 +91,22 @@ document.addEventListener("keyup", (e) => {
                     alert("The word you typed is not a word, please try again");
                 }
             });
-            
-            
-            
         }
     }
     
 })
-
 function update(userWord) { 
     var correct = 0;
     for (let c = 0; c < 5; c++) {
         currentGridTile = document.getElementById(currentRow.toString() + c.toString());
-        //console.log(word);
-        //console.log(userWord[c]);
-        var copyOfWord = word;
-        if (word[c] == userWord[c]) {
-            correct += 1;
-            currentGridTile.className = "correct";
-        }
-        else if (copyOfWord.includes(userWord[c])) {
-            //need to figure out how to take out the letter from word... either slice or remove method (need to find something)
-            currentGridTile.className = "inWord";
+        if (word.includes(userWord[c])) {
+            if (word[c] == userWord[c]) {
+                correct += 1;
+                currentGridTile.className = "correct";
+            }
+            else {
+                currentGridTile.className = "inWord";
+            }
         }
         else {
             currentGridTile.className = "wrong";
@@ -156,15 +146,33 @@ function getWord() {
 }
 
 function gameOver(){
+    var message = document.getElementById("gameFinishMessage");
     if (lives == 0) {
         gameStop = true;
-        alert("Game Over, you ran out of lives :(");
+        message.innerText = "GAME OVER\n You ran out of lives :( click the button to play again";
     }
     else {
         gameStop = true;
-        alert("Game Over, you ran out of guesses :/");
+        message.innerText = "GAME OVER\n You ran out of guesses :/ click the button to play again";
     }
+    var button = document.createElement("input");
+    button.type = "button";
+    button.value = "Play Again";
+
+    document.getElementById("gameFinish").appendChild(button);
+    button.onclick = reload;
 }
 function gameWin() {
-    alert("congrats you won :)");
+    var message = document.getElementById("gameFinishMessage");
+    gameStop = true;
+    message.innerText = "Congrats! You Won!\n click the button to play again";
+    var button = document.createElement("input");
+    button.type = "button";
+    button.value = "Play Again";
+
+    document.getElementById("gameFinish").appendChild(button);
+    button.onclick = reload;
+}
+function reload() {
+    document.location.reload();
 }

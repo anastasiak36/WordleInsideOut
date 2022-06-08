@@ -7,6 +7,7 @@ html {
 } */
 html {
     background-image: url("images/bg.jpg");
+    /* background-color:#000000; */
 }
 body {
     min-width: 50%;
@@ -46,7 +47,7 @@ span {
 }
 
 .wrong {
-    background-color:dimgray;
+    background-color:gray;
     opacity: 100%;
 }
 .secretLetter {
@@ -60,4 +61,12 @@ span {
     height: 420px;
     margin: 0 auto;
 }
+#gameFinish {
+    text-align: center;
+    margin-bottom: 10px;
+}
+#gameFinishMessage {
+    color: #0b1fd9;
+}
+
 
