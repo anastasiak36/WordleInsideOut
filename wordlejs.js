@@ -97,17 +97,37 @@ document.addEventListener("keyup", (e) => {
 })
 function update(userWord) { 
     var correct = 0;
+    var result = {};
+    for (i in word) {
+        if (i in result) {
+            result[i] += 1;
+        }
+        else {
+            result[i] += 1;
+        }
+    }
     for (let c = 0; c < 5; c++) {
         currentGridTile = document.getElementById(currentRow.toString() + c.toString());
-        if (word.includes(userWord[c])) {
+        // if (word.includes(userWord[c])) {
+            
             if (word[c] == userWord[c]) {
                 correct += 1;
                 currentGridTile.className = "correct";
             }
-            else {
-                currentGridTile.className = "inWord";
+            else if (word.includes(userWord[c])) {
+                
             }
-        }
+            // else if (word.includes(userWord[c])) {
+            //     var letterArray = word.split;
+            //     for (let checkLetter = 0; checkLetter < letterArray.length; checkLetter++) {
+            //         if (userWord[c] == letterArray[checkLetter]) {
+            //             currentGridTile.className = "inWord";
+            //             letterArray = letterArray.filter(e => e !== letterArray[checkLetter]);
+            //         }
+            //     }
+            // }
+            
+        // }
         else {
             currentGridTile.className = "wrong";
             for (var i = 0; i < 3; i++ ) {
