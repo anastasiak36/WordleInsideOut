@@ -31,7 +31,8 @@ function getLevel() {
 }
 
 function generateWord(w) {
-    word = w.toUpperCase();
+    word = "APPLE"; //w.toUpperCase();
+    
     console.log(word);
     var randomLetters = "";
     for (var i = 0; i < 3; i++) {
@@ -99,23 +100,53 @@ function update(userWord) {
     var correct = 0;
     var result = {};
     for (i in word) {
-        if (i in result) {
-            result[i] += 1;
+        if (word[i] in result) {
+            result[word[i]] += 1;
         }
         else {
-            result[i] += 1;
+            result[word[i]] = 1;
+        }
+        console.log(word[i]);
+        console.log(result[word[i]]);
+    }
+    var userResult = {};
+    for (j in userWord) {
+        if (word.includes(userWord[j])) {
+            if (userWord[j] in userResult) {
+                userResult[userWord[j]] += 1;
+            }
+            else {
+                userResult[userWord[j]] = 1;
+            }
+            console.log(userWord[j]);
+            console.log(userResult[userWord[j]]);
         }
     }
+    // console.log(result);
+    // console.log(userResult);
     for (let c = 0; c < 5; c++) {
         currentGridTile = document.getElementById(currentRow.toString() + c.toString());
         // if (word.includes(userWord[c])) {
-            
             if (word[c] == userWord[c]) {
                 correct += 1;
                 currentGridTile.className = "correct";
+                result[word[c]]--;
+                if (word[c] in userResult) {
+                    userResult[word[c]]--;
+                }
             }
             else if (word.includes(userWord[c])) {
-                
+                if (userWord[c] in result) {
+                    if (userResult[userWord[c]] == result[userWord[c]]) {
+                        currentGridTile.className = "inWord";
+                    }
+                    else {
+                        currentGridTile.className = "wrong";
+                    }
+                }
+                else {
+                    currentGridTile.className = "inWord";
+                }
             }
             // else if (word.includes(userWord[c])) {
             //     var letterArray = word.split;
