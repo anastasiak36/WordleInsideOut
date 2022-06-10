@@ -310,14 +310,22 @@ function getWord() {
 
 function gameOver(){
     var message = document.getElementById("gameFinishMessage");
+    var divider = document.getElementById("gameFinish");
+    var character = document.createElement("img");
     if (lives == 0) {
         gameStop = true;
         message.innerText = "GAME OVER\n You ran out of lives :( click the button to play again\n The word was: " + word;
+        character.src = "images/anger.gif";
     }
     else {
         gameStop = true;
         message.innerText = "GAME OVER\n You ran out of guesses :/ click the button to play again\n The word was: " + word;
+        character.src = "images/sadness.gif";
     }
+    character.id = "character";
+    character.height = 100;
+    character.width = 100;
+    divider.appendChild(character);
     var button = document.createElement("input");
     button.type = "button";
     button.value = "Play Again";
@@ -330,7 +338,7 @@ function gameWin() {
     var divider = document.getElementById("gameFinish");
     var bingBong = document.createElement("img");
     bingBong.src = "images/bingbong.gif";
-    bingBong.id = "bingbong";
+    bingBong.id = "character";
     bingBong.height = 100;
     bingBong.width = 100;
     divider.appendChild(bingBong);

@@ -121,12 +121,11 @@ p {
     color: #7c05b3;
     font-size: 20px;
     border-width: 5px;
-    display: inline;
+    display: inline-block;
     margin-left: 50px;
-    margin-top: 0;
 }
-#bingbong {
-    display: inline;
+#character {
+    display: inline-block;
 }
 
 
