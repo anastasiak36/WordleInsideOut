@@ -63,6 +63,11 @@ span {
     align-items: center;
 
 }
+p {
+    text-align: center;
+    color:#7c05b3;
+    font-size: 20px;
+}
 #lives {
     text-align: right;
     margin-right: 75px;
