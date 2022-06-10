@@ -1,13 +1,6 @@
-/* body {
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 html {
-    background-image: url("images/bg.jpg");
-} */
-html {
-    background-image: url("images/bg.jpg");
-    /* background-color:#000000; */
+    /* background-image: url("images/bg.jpg"); */
+    background-color: #bf35e6;
 }
 body {
     min-width: 50%;
@@ -15,17 +8,50 @@ body {
     min-height: 525px;
     margin: 0 auto; /* centering trick */
     padding: 20px;
-    background-color:#d384e8;
+    background-color:#eaa1ff;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #500373;
+    font-family: 'Chakra Petch', sans-serif;
     /* opacity: 80%; */
 }
 h1 {
-    margin: 0 auto;
+    display: inline;
     text-align: center;
     color: #0b1fd9;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 50px;
     
 }
+#wordle {
+    text-align: center;
+}
+#w {
+  color:#ebe38a;
+}
+#o {
+    color: #fa0202;
+}
+#r {
+    color: #037dff;
+}
+#d {
+    color: #bb2fed;
+}
+#l {
+    color: #039c06;
+}
+#e {
+    color: #d93ba4;
+}
+#form {
+    text-align: center;
+    color: #7c05b3;
+    font-size: 20px;
+}
 span {
-    border: 2px solid black;
+    border: 2px solid #500373;
     width: 60px;
     height: 60px;
     padding: 3px;
@@ -37,21 +63,27 @@ span {
     align-items: center;
 
 }
-
+p {
+    text-align: right;
+    margin-right: 75px;
+    color:#7c05b3;
+    font-weight: bold;
+    font-size: 20px;
+}
 .correct {
-    background-color: darkolivegreen;
+    background-color: #039c06;
 }
 
 .inWord {
-    background-color: darkgoldenrod;
+    background-color: #e3bf0e;
 }
 
 .wrong {
-    background-color:gray;
+    background-color:#73726f;
     opacity: 100%;
 }
 .secretLetter {
-    background-color:lightcoral;
+    background-color: #fa0202;
 }
 
 #grid {
@@ -66,7 +98,29 @@ span {
     margin-bottom: 10px;
 }
 #gameFinishMessage {
-    color: #0b1fd9;
+    color: #7c05b3;
+}
+#button {
+    font-family: "Chakra Petch", sans-serif;
+    border-style: double;
+    height: 40px;
+    width: 70px;
+    background-color: #e9c1f5;
+    border-color: #500373;
+    color: #7c05b3;
+    font-size: 20px;
+    border-width: 5px;
+}
+#playAgain {
+    font-family: "Chakra Petch", sans-serif;
+    border-style: double;
+    height: 40px;
+    width: 115px;
+    background-color: #e9c1f5;
+    border-color: #500373;
+    color: #7c05b3;
+    font-size: 20px;
+    border-width: 5px;
 }
 
 

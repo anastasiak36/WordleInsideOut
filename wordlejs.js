@@ -31,7 +31,7 @@ function getLevel() {
 }
 
 function generateWord(w) {
-    word = "APPLE"; //w.toUpperCase();
+    word = w.toUpperCase();
     
     console.log(word);
     var randomLetters = "";
@@ -45,7 +45,7 @@ function generateWord(w) {
         console.log(randomLetters);
         //console.log(alphabet);
     }
-    alert(randomList);
+    //alert(randomList);
 }
 
 function createGrid() {
@@ -165,19 +165,22 @@ function update(userWord) {
                 if (userWord[c] == alphabet[randomList[i]]){
                     currentGridTile.className = "secretLetter";
                     lives--;
-                    document.getElementById("lives").innerText = "Lives: " + lives.toString();
-                    if (lives == 0) {
-                        gameOver();
+                    if (lives < 0) {
+                        lives = 0;
                     }
+                    document.getElementById("lives").innerText = "Lives: " + lives.toString();
                 }
             }
         }
     }
+    currentRow += 1;
     if (correct == 5) {
         gameWin();
     }
-    currentRow += 1;
-    if (currentRow > 5) {
+    else if (lives == 0) {
+        gameOver();
+    }
+    else if (currentRow > 5) {
         gameOver();
     }
     currentCol = 0;
@@ -200,15 +203,16 @@ function gameOver(){
     var message = document.getElementById("gameFinishMessage");
     if (lives == 0) {
         gameStop = true;
-        message.innerText = "GAME OVER\n You ran out of lives :( click the button to play again";
+        message.innerText = "GAME OVER\n You ran out of lives :( click the button to play again\n The word was: " + word;
     }
     else {
         gameStop = true;
-        message.innerText = "GAME OVER\n You ran out of guesses :/ click the button to play again";
+        message.innerText = "GAME OVER\n You ran out of guesses :/ click the button to play again\n The word was: " + word;
     }
     var button = document.createElement("input");
     button.type = "button";
     button.value = "Play Again";
+    button.id= "playAgain";
 
     document.getElementById("gameFinish").appendChild(button);
     button.onclick = reload;
@@ -220,6 +224,7 @@ function gameWin() {
     var button = document.createElement("input");
     button.type = "button";
     button.value = "Play Again";
+    button.id = "playAgain";
 
     document.getElementById("gameFinish").appendChild(button);
     button.onclick = reload;

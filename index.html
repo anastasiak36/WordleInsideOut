@@ -5,25 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet" type="text/css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&display=swap" rel="stylesheet">
     <title>InsideOutWordle</title>
 </head>
 <body>
-    <h1>WORDLE</h1>
+    <div id="wordle">
+        <h1 id="w">W</h1>
+        <h1 id="o">O</h1>
+        <h1 id="r">R</h1>
+        <h1 id="d">D</h1>
+        <h1 id="l">L</h1>
+        <h1 id="e">E</h1>
+    </div>
     <p id = "lives">Lives: 3</p>
     <div id = "gameFinish">
         <h4 id = "gameFinishMessage"></h4>
     </div>
     
     <div id = "form">
-        <form >
+        <form>
             <input type="radio" id="easy" name="level" value="easyWords.txt">
-            <label for="easy">Easy:)</label><br>
+            <label for="easy">Easy :)</label><br>
             <input type="radio" id="medium" name="level" value="mediumWords.txt">
-            <label for="medium">Medium:|</label><br>
+            <label for="medium">Medium :/</label><br>
             <input type="radio" id="hard" name="level" value="hardWords.txt">
-            <label for="hard">Hard:(</label><br>
-            <input id="button" type="button" value="Start!">
+            <label for="hard">Hard :(</label><br>
+            <br><input id="button" type="button" value="Start!">
         </form>
     </div>
     
