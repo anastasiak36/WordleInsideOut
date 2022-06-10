@@ -17,6 +17,9 @@ var gameStop = false;
 // var tileDisgust;
 // var letterDisgust;
 // var characterDisgust; 
+var tileDict = {};
+var imgID = [];
+var imgIDIndex = 0;
 var radios = document.getElementsByName("level");
 var button = document.getElementById("button");
 button.onclick = getLevel;
@@ -145,11 +148,15 @@ function update(userWord) {
                 joy.src = "images/joy.gif";
                 joy.height = 60;
                 joy.width = 60;
+                joy.id = "joy" + currentGridTile.id;
+                imgID[imgIDIndex] = joy.id;
+                imgIDIndex++;
+                tileDict[currentGridTile.id] = temp;
                 currentGridTile.appendChild(joy);
                 //tileJoy = currentGridTile;
                 // letterJoy = temp;
                 // characterJoy = joy;
-                setTimeout(function() {setBackTextJoy(currentGridTile, temp, joy)}, 2000);
+                // setTimeout(function() {setBackTextJoy(currentGridTile, temp, joy)}, 2000);
                 
                 // currentGridTile.innerText = joy;
                 result[word[c]]--;
@@ -167,11 +174,15 @@ function update(userWord) {
                         disgust.src = "images/disgust.gif";
                         disgust.height = 60;
                         disgust.width = 60;
+                        disgust.id = "disgust" + currentGridTile.id;
+                        imgID[imgIDIndex] = disgust.id;
+                        imgIDIndex++;
+                        tileDict[currentGridTile.id] = temp;
                         currentGridTile.appendChild(disgust);
                         // tileDisgust = currentGridTile;
                         // letterDisgust = temp;
                         // characterDisgust = disgust;
-                        setTimeout(function() {setBackTextDisgust(currentGridTile, temp, disgust)}, 3000);
+                        // setTimeout(function() {setBackTextDisgust(currentGridTile, temp, disgust)}, 3000);
                     }
                     else {
                         currentGridTile.className = "wrong";
@@ -185,11 +196,15 @@ function update(userWord) {
                     disgust.src = "images/disgust.gif";
                     disgust.height = 60;
                     disgust.width = 60;
+                    disgust.id = "disgust" + currentGridTile.id;
+                    imgID[imgIDIndex] = disgust.id;
+                    imgIDIndex++;
+                    tileDict[currentGridTile.id] = temp;
                     currentGridTile.appendChild(disgust);
                     // tileDisgust = currentGridTile;
                     // letterDisgust = temp;
                     // characterDisgust = disgust;
-                    setTimeout(function() {setBackTextDisgust(currentGridTile, temp, disgust)}, 3000);
+                    // setTimeout(function() {setBackTextDisgust(currentGridTile, temp, disgust)}, 3000);
                 }
             }
             // else if (word.includes(userWord[c])) {
@@ -214,11 +229,15 @@ function update(userWord) {
                     fear.src = "images/fear.gif";
                     fear.height = 60;
                     fear.width = 60;
+                    fear.id = "fear" + currentGridTile.id;
+                    imgID[imgIDIndex] = fear.id;
+                    imgIDIndex++;
+                    tileDict[currentGridTile.id] = temp;
                     currentGridTile.appendChild(fear);
                     // tileFear = currentGridTile;
                     // letterFear = temp;
                     // characterFear = fear;
-                    setTimeout(function() {setBackTextFear(currentGridTile, temp, fear)}, 4500);
+                    // setTimeout(function() {setBackTextFear(currentGridTile, temp, fear)}, 4500);
                     lives--;
                     if (lives < 0) {
                         lives = 0;
@@ -228,6 +247,7 @@ function update(userWord) {
             }
         }
     }
+    setTimeout(setBackText, 5000);
     currentRow += 1;
     if (correct == 5) {
         gameWin();
@@ -241,29 +261,39 @@ function update(userWord) {
     currentCol = 0;
     //alert(correct + " are correct so far!");
 }
-function setBackTextJoy(tile, letter, character) {
+function setBackText() {
     //console.log("removed");
-    console.log(tile.id);
-    console.log(letter);
-    character.parentNode.removeChild(character);
-    tile.innerText = letter;
+    for (var i = 0; i < imgID.length; i++) {
+        var currentImg = document.getElementById(imgID[i]);
+        var tileID = imgID[i].substring(imgID[i].length - 2);
+        var tile = document.getElementById(tileID);
+        console.log(imgID[i]);
+        console.log(tileID);
+        currentImg.parentNode.removeChild(currentImg);
+        tile.innerText = tileDict[tileID];
+    }
+    imgID = [];
+    imgIDIndex = 0;
+    tileDict = {};
+    // console.log(tile.id);
+    // console.log(letter);
 }
 
-function setBackTextDisgust(tile, letter, character) {
-    //console.log("removed");
-    console.log(tile.id);
-    console.log(letter);
-    character.parentNode.removeChild(character);
-    tile.innerText = letter;
-}
+// function setBackTextDisgust(tile, letter, character) {
+//     //console.log("removed");
+//     console.log(tile.id);
+//     console.log(letter);
+//     character.parentNode.removeChild(character);
+//     tile.innerText = letter;
+// }
 
-function setBackTextFear(tile, letter, character) {
-    //console.log("removed");
-    console.log(tile.id);
-    console.log(letter);
-    character.parentNode.removeChild(character);
-    tile.innerText = letter;
-}
+// function setBackTextFear(tile, letter, character) {
+//     //console.log("removed");
+//     console.log(tile.id);
+//     console.log(letter);
+//     character.parentNode.removeChild(character);
+//     tile.innerText = letter;
+// }
 
 function getWord() {
     currentGridTile = document.getElementById(currentRow.toString() + '0');
