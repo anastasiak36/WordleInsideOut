@@ -327,16 +327,27 @@ function gameOver(){
     button.onclick = reload;
 }
 function gameWin() {
-    var message = document.getElementById("gameFinishMessage");
-    gameStop = true;
-    message.innerText = "Congrats! You Won!\n click the button to play again";
+    var divider = document.getElementById("gameFinish");
+    var bingBong = document.createElement("img");
+    bingBong.src = "images/bingbong.gif";
+    bingBong.id = "bingbong";
+    bingBong.height = 100;
+    bingBong.width = 100;
+    divider.appendChild(bingBong);
+
     var button = document.createElement("input");
     button.type = "button";
     button.value = "Play Again";
     button.id = "playAgain";
-
-    document.getElementById("gameFinish").appendChild(button);
+    divider.appendChild(button);
     button.onclick = reload;
+
+    var message = document.getElementById("gameFinishMessage");
+    gameStop = true;
+    message.innerText = "Congrats! You Won!\n click the button to play again";
+
+    
+    
 }
 function reload() {
     document.location.reload();
