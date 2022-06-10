@@ -8,15 +8,6 @@ var word;
 var lives = 3;
 var currentGridTile;
 var gameStop = false;
-// var tileJoy;
-// var letterJoy; 
-// var characterJoy;
-// var tileFear;
-// var letterFear;
-// var cahracterFear;
-// var tileDisgust;
-// var letterDisgust;
-// var characterDisgust; 
 var tileDict = {};
 var imgID = [];
 var imgIDIndex = 0;
@@ -43,7 +34,7 @@ function getLevel() {
 }
 
 function generateWord(w) {
-    word = "PIZZA";//w.toUpperCase();
+    word = w.toUpperCase();
     
     console.log(word);
     var randomLetters = "";
@@ -53,11 +44,7 @@ function generateWord(w) {
             randomList[i] = Math.floor(Math.random() * alphabet.length);
         }
         randomLetters += alphabet[randomList[i]];
-        //alphabet = alphabet.substring(0, randomList[i]) + alphabet.substring(randomList[i] + 1);
-        console.log(randomLetters);
-        //console.log(alphabet);
     }
-    //alert(randomList);
 }
 
 function createGrid() {
@@ -96,7 +83,6 @@ document.addEventListener("keyup", (e) => {
             var currentUserWord = getWord();
             fetch('words.txt').then(response => response.text()).then(data => {
                 var dict = data.split('\r\n');
-                //console.log(currentUserWord.toLowerCase());
                 if (dict.indexOf(currentUserWord.toLowerCase()) != -1) {
                     update(currentUserWord);
                 }
@@ -118,8 +104,6 @@ function update(userWord) {
         else {
             result[word[i]] = 1;
         }
-        console.log(word[i]);
-        console.log(result[word[i]]);
     }
     var userResult = {};
     for (j in userWord) {
@@ -130,15 +114,10 @@ function update(userWord) {
             else {
                 userResult[userWord[j]] = 1;
             }
-            console.log(userWord[j]);
-            console.log(userResult[userWord[j]]);
         }
     }
-    // console.log(result);
-    // console.log(userResult);
     for (let c = 0; c < 5; c++) {
         currentGridTile = document.getElementById(currentRow.toString() + c.toString());
-        // if (word.includes(userWord[c])) {
             if (word[c] == userWord[c]) {
                 correct += 1;
                 var temp = currentGridTile.innerText;
@@ -153,12 +132,6 @@ function update(userWord) {
                 imgIDIndex++;
                 tileDict[currentGridTile.id] = temp;
                 currentGridTile.appendChild(joy);
-                //tileJoy = currentGridTile;
-                // letterJoy = temp;
-                // characterJoy = joy;
-                // setTimeout(function() {setBackTextJoy(currentGridTile, temp, joy)}, 2000);
-                
-                // currentGridTile.innerText = joy;
                 result[word[c]]--;
                 if (word[c] in userResult) {
                     userResult[word[c]]--;
@@ -179,10 +152,6 @@ function update(userWord) {
                         imgIDIndex++;
                         tileDict[currentGridTile.id] = temp;
                         currentGridTile.appendChild(disgust);
-                        // tileDisgust = currentGridTile;
-                        // letterDisgust = temp;
-                        // characterDisgust = disgust;
-                        // setTimeout(function() {setBackTextDisgust(currentGridTile, temp, disgust)}, 3000);
                     }
                     else {
                         currentGridTile.className = "wrong";
@@ -201,23 +170,8 @@ function update(userWord) {
                     imgIDIndex++;
                     tileDict[currentGridTile.id] = temp;
                     currentGridTile.appendChild(disgust);
-                    // tileDisgust = currentGridTile;
-                    // letterDisgust = temp;
-                    // characterDisgust = disgust;
-                    // setTimeout(function() {setBackTextDisgust(currentGridTile, temp, disgust)}, 3000);
                 }
             }
-            // else if (word.includes(userWord[c])) {
-            //     var letterArray = word.split;
-            //     for (let checkLetter = 0; checkLetter < letterArray.length; checkLetter++) {
-            //         if (userWord[c] == letterArray[checkLetter]) {
-            //             currentGridTile.className = "inWord";
-            //             letterArray = letterArray.filter(e => e !== letterArray[checkLetter]);
-            //         }
-            //     }
-            // }
-            
-        // }
         else {
             currentGridTile.className = "wrong";
             for (var i = 0; i < 3; i++ ) {
@@ -234,10 +188,6 @@ function update(userWord) {
                     imgIDIndex++;
                     tileDict[currentGridTile.id] = temp;
                     currentGridTile.appendChild(fear);
-                    // tileFear = currentGridTile;
-                    // letterFear = temp;
-                    // characterFear = fear;
-                    // setTimeout(function() {setBackTextFear(currentGridTile, temp, fear)}, 4500);
                     lives--;
                     if (lives < 0) {
                         lives = 0;
@@ -259,48 +209,24 @@ function update(userWord) {
         gameOver();
     }
     currentCol = 0;
-    //alert(correct + " are correct so far!");
 }
 function setBackText() {
-    //console.log("removed");
     for (var i = 0; i < imgID.length; i++) {
         var currentImg = document.getElementById(imgID[i]);
         var tileID = imgID[i].substring(imgID[i].length - 2);
         var tile = document.getElementById(tileID);
-        console.log(imgID[i]);
-        console.log(tileID);
         currentImg.parentNode.removeChild(currentImg);
         tile.innerText = tileDict[tileID];
     }
     imgID = [];
     imgIDIndex = 0;
     tileDict = {};
-    // console.log(tile.id);
-    // console.log(letter);
 }
-
-// function setBackTextDisgust(tile, letter, character) {
-//     //console.log("removed");
-//     console.log(tile.id);
-//     console.log(letter);
-//     character.parentNode.removeChild(character);
-//     tile.innerText = letter;
-// }
-
-// function setBackTextFear(tile, letter, character) {
-//     //console.log("removed");
-//     console.log(tile.id);
-//     console.log(letter);
-//     character.parentNode.removeChild(character);
-//     tile.innerText = letter;
-// }
-
 function getWord() {
     currentGridTile = document.getElementById(currentRow.toString() + '0');
     var letter = currentGridTile.innerText;
     var string = letter;
     for (var i = 1; i < 5; i++) {
-        //console.log(string);
         currentGridTile = document.getElementById(currentRow.toString() + i.toString());
         letter = currentGridTile.innerText;
         string += letter;
@@ -353,9 +279,7 @@ function gameWin() {
     var message = document.getElementById("gameFinishMessage");
     gameStop = true;
     message.innerText = "Congrats! You Won!\n click the button to play again";
-
-    
-    
+ 
 }
 function reload() {
     document.location.reload();

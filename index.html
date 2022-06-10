@@ -24,6 +24,14 @@
     
     <div id = "form">
         <form>
+            <p>Welcome to our game! </p>
+            <p>Your goal is to guess the mystery word. You have six guesses to do this. On each guess type in the word you would like to try and hit enter. Your guess will be scored as follows: </p>
+            <p>1. If the letter is green it is in the correct spot.</p>
+            <p>2. If the letter is yellow it is in the word but not in the correct position.</p>
+            <p>3. If the letter is gray it is not in the word.</p>
+            <p>4. If the letter is red then you guessed a secret letter that makes you lose a life. It is not in the word.</p>
+            <p>Please select the level you would like to play below:</p>
+            
             <input type="radio" id="easy" name="level" value="easyWords.txt">
             <label for="easy">Easy :)</label><br>
             <input type="radio" id="medium" name="level" value="mediumWords.txt">
@@ -31,6 +39,7 @@
             <input type="radio" id="hard" name="level" value="hardWords.txt">
             <label for="hard">Hard :(</label><br>
             <br><input id="button" type="button" value="Start!">
+            
         </form>
     </div>
     
