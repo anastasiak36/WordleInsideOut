@@ -82,7 +82,7 @@ document.addEventListener("keyup", (e) => {
         else if (e.code == "Enter") {
             var currentUserWord = getWord();
             fetch('words.txt').then(response => response.text()).then(data => {
-                var dict = data.split('\r\n');
+                var dict = data.split('\n');
                 if (dict.indexOf(currentUserWord.toLowerCase()) != -1) {
                     update(currentUserWord);
                 }
