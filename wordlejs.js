@@ -17,11 +17,15 @@ button.onclick = getLevel;
 
 
 function getLevel() {
+    var selected = true;
     for (var i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
             level = radios[i].value;
             break;
-            
+        }
+        if (i == 2 && !radios[i].checked) {
+            alert("please select a choice before clicking start");
+            selected = false;
         }
     }
     fetch(level).then(response => response.text()).then(data => {
@@ -29,8 +33,10 @@ function getLevel() {
         word = words[Math.floor(Math.random() * words.length)];
         generateWord(word);
     });
+    if (selected) {
+        createGrid();
+    }
     
-    createGrid();
 }
 
 function generateWord(w) {
