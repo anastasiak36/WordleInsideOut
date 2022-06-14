@@ -1,6 +1,7 @@
 html {
     /* background-image: url("images/bg.jpg"); */
-    background-color: #bf35e6;
+    /* background-color: #bf35e6; */
+    background-color: #ffffff;
 }
 body {
     min-width: 50%;
@@ -23,6 +24,9 @@ h1 {
     border-width: 1px;
     font-size: 50px;
     
+}
+h5 {
+    text-align: center;
 }
 #wordle {
     text-align: center;
@@ -130,7 +134,5 @@ p {
     margin-left: 50px;
 }
 #character {
-    display: inline-block;
+    
 }
-
-
